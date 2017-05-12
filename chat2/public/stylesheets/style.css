@@ -1,0 +1,11 @@
+body {
+  margin-top: 10px;
+}
+
+.btn-primary {
+  margin-top: 20px;
+}
+
+#messageArea {
+  display: none;
+}

@@ -18,12 +18,12 @@ $(function () {
                 var delay = setTimeout(function() {
                     setStatus(statusDefault);
                     clearInterval(delay);
-                }, 3000)
+                }, 5000)
             }
         };
 
     try {
-        var socket = io.connect('0.0.0.0:8080');
+        var socket = io.connect();
     } catch (e) {
         console.log(e);
         // set status

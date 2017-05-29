@@ -8,12 +8,14 @@ input {
 
 .chat {
   max-width: 300px;
+  /*border: solid 1px black;*/
 }
 
 .chat-name,
 .chat-textarea,
 .chat-messages {
   border: solid 1px #bbb;
+  border-radius: 0;
 }
 
 .chat-messages {
@@ -24,10 +26,8 @@ input {
 }
 
 .chat-message {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
-
-
 
 .chat-name {
   width: 100%;
@@ -47,4 +47,14 @@ input {
 .chat-textarea,
 .chat-name {
   outline: none;
+}
+
+#emoji-button {
+  padding-left: 15px;
+  font-size: 20px;
+}
+
+.emoji {
+  font-size: 25px;
+  padding: 4px;
 }

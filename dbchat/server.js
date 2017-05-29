@@ -1,20 +1,20 @@
 'use strict';
 
-var mongo = require('mongodb').MongoClient;
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var client = require('socket.io')(server);
-var users = [];
-var connections = [];
+const mongo = require('mongodb').MongoClient;
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const client = require('socket.io')(server);
 app.use(express.static('public'));
 
-server.listen(8080, '0.0.0.0');
-console.log('The server is running on 8080');
+server.listen(9090, '0.0.0.0');
+console.log('The server is running on 9090');
 
+
+let rooms = ['global','alma'];
 
 app.get('/', function (req, res) {
-   res.sendfile(__dirname + '/index.html');
+   res.sendFile(__dirname + '/index.html');
 });
 
 mongo.connect('mongodb://127.0.0.1/chat', function(err, db) {
@@ -28,7 +28,7 @@ mongo.connect('mongodb://127.0.0.1/chat', function(err, db) {
             };
 
         //emit all messages
-        col.find().limit(100).sort({_id:1}).toArray(function(err, res) {
+        col.find().limit(1000).sort({_id:1}).toArray(function(err, res) {
             if (err) throw err;
             socket.emit('output', res)
         });
@@ -53,6 +53,11 @@ mongo.connect('mongodb://127.0.0.1/chat', function(err, db) {
                     });
                 });
             }
+        });
+
+        socket.on('chatrooms', function() {
+            socket.emit('chat-rooms', rooms);
+            console.log(rooms);
         });
     });
 });

@@ -1,3 +1,4 @@
+'use strict';
 
 $(function () {
     var getNode = function(selector) {
@@ -10,8 +11,9 @@ $(function () {
         chatName = getNode('.chat-name'),
         statusDefault = status.textContent,
         messages = getNode('.chat-messages'),
+        button = getNode('#send-message');
 
-        setStatus = function(statuss) {
+        var setStatus = function(statuss) {
             status.textContent = statuss;
 
             if (status !== statusDefault) {
@@ -47,11 +49,13 @@ $(function () {
                 for (let x = 0; x < data.length; x++) {
                     let message = document.createElement('div');
                     message.setAttribute('class', 'chat-message');
-                    message.textContent = data[x].name + ':' + data[x].message;
+                    message.textContent = data[x].name + ': ' + data[x].message;
 
-                    //append
+                    //append the messages to the bottom of the div and scroll automatically when the user send the message
                     messages.appendChild(message);
-                    messages.insertBefore(message, messages.firstChild);
+                    messages.insertBefore(message, messages.lastChild);
+                    // messages.insertBefore(messages.lastChild, message);
+                    messages.scrollTop = messages.scrollHeight;
                 }
             }
         });
@@ -65,9 +69,56 @@ $(function () {
                     name: name,
                     message: self.value
                 });
-
                 event.preventDefault();
             }
+        });
+
+        // /listen for click
+        $(button).on('click', function (event) {
+            socket.emit('input', {
+                name: chatName.value,
+                message: textarea.value
+            });
+            event.preventDefault();
+        });
+
+        const addEmojiToTextarea = function () {
+            $(".emoji").on('click', function(element) {
+                let value = element.target.textContent;
+                textarea.value += value;
+            })
+        };
+
+        $('#myModal').on('shown.bs.modal', function () {
+            textarea = getNode('.chat-textarea');
+            addEmojiToTextarea();
+        });
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            $(".emoji").off('click');
         })
+
+        $('.alma').on('click', function() {
+            socket.emit('chatrooms', function() {
+                socket.on('chat-rooms', function(data) {
+                    console.log(data);
+                    console.log('kiskutyafasza')
+                });
+            });
+        })
+
     }
 });
+
+let hideModal = function() {
+    document.addEventListener('keydown', function(event) {
+        if (event.which===27) {
+            $('#myModal').modal('hide');
+        }
+    })
+};
+
+$(document).ready(function() {
+    hideModal();
+});
+

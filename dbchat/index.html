@@ -7,18 +7,61 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="javascripts/chat.js"></script>
+    <script src="/javascripts/chat.js"></script>
+
     <link rel="stylesheet" href="stylesheets/style.css">
 
 </head>
 <body>
     <div class="container">
         <div class="chat">
-            <input type="text" class="chat-name" placeholder="Enter your name">
+            <input type="text" class="chat-name form-control" placeholder="Enter your name">
             <div class="chat-messages"></div>
-            <textarea class="chat-textarea" placeholder="Type your message"></textarea>
-
+            <textarea class="chat-textarea form-control" placeholder="Type your message"></textarea>
             <div class="chat-status">Status: <span>Idle</span></div>
+            <button type="button" class="btn btn-xs btn-danger" id="send-message">Send</button>
+            <i id="emoji-button" data-toggle="modal" data-target="#myModal">🙂</i>
+             <!--Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div>
+                                <i class="emoji">🙂</i>
+                                <i class="emoji">😊</i>
+                                <i class="emoji">😂</i>
+                                <i class="emoji">😉</i>
+                                <i class="emoji">😍</i>
+                                <i class="emoji">🤔</i>
+                                <i class="emoji">😥</i>
+                                <i class="emoji">😭</i>
+                                <i class="emoji">🎺</i>
+                                <i class="emoji">♥</i>
+                                <i class="emoji">🎾</i>
+                                <i class="emoji">‍🎨</i>
+                                <i class="emoji">🛌</i>
+                                <i class="emoji">⛷</i>
+                                <i class="emoji">🚵</i>
+                                <i class="emoji">🖖</i>
+                                <i class="emoji">👍</i>
+                                <i class="emoji">🐵</i>
+                                <i class="emoji">🚂</i>
+                                <i class="emoji">🖕</i>
+                                <i class="emoji">🚌</i>
+                                <i class="emoji">🚜</i>
+                                <i class="emoji">🖕( ͡° ͜ʖ ͡°)🖕</i>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <button class="alma">dékl</button>
         </div>
     </div>
 </body>

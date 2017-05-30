@@ -46,10 +46,10 @@ $(function () {
         socket.on('output', function(data) {
             if(data.length) {
                 //loop through results
-                for (let x = 0; x < data.length; x++) {
+                for (let x = data.length; x > 0; x--) {
                     let message = document.createElement('div');
                     message.setAttribute('class', 'chat-message');
-                    message.textContent = data[x].name + ': ' + data[x].message;
+                    message.textContent = data[x-1].name + ': ' + data[x-1].message;
 
                     //append the messages to the bottom of the div and scroll automatically when the user send the message
                     messages.appendChild(message);
@@ -71,6 +71,17 @@ $(function () {
                 });
                 event.preventDefault();
             }
+        });
+
+        //listen for room
+        socket.on('room', function(res) {
+            console.log("room number: " + res);
+        });
+
+        //listen for room
+        socket.on('firstName', function(res) {
+            console.log("firstName: " + res);
+            chatName.value = res;
         });
 
         // /listen for click
@@ -97,16 +108,6 @@ $(function () {
         $('#myModal').on('hidden.bs.modal', function () {
             $(".emoji").off('click');
         })
-
-        $('.alma').on('click', function() {
-            socket.emit('chatrooms', function() {
-                socket.on('chat-rooms', function(data) {
-                    console.log(data);
-                    console.log('kiskutyafasza')
-                });
-            });
-        })
-
     }
 });
 
